@@ -41,10 +41,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.version_label = new System.Windows.Forms.Label();
             this.Country = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Government_Budget = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Year_Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.version_label = new System.Windows.Forms.Label();
+            this.Clear_Btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,7 +82,7 @@
             this.Load_Btn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.Load_Btn.Location = new System.Drawing.Point(12, 514);
             this.Load_Btn.Name = "Load_Btn";
-            this.Load_Btn.Size = new System.Drawing.Size(75, 23);
+            this.Load_Btn.Size = new System.Drawing.Size(63, 23);
             this.Load_Btn.TabIndex = 4;
             this.Load_Btn.Text = "Load";
             this.Load_Btn.UseVisualStyleBackColor = true;
@@ -90,9 +91,9 @@
             // Save_Btn
             // 
             this.Save_Btn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.Save_Btn.Location = new System.Drawing.Point(93, 514);
+            this.Save_Btn.Location = new System.Drawing.Point(81, 514);
             this.Save_Btn.Name = "Save_Btn";
-            this.Save_Btn.Size = new System.Drawing.Size(75, 23);
+            this.Save_Btn.Size = new System.Drawing.Size(63, 23);
             this.Save_Btn.TabIndex = 5;
             this.Save_Btn.Text = "Save";
             this.Save_Btn.UseVisualStyleBackColor = true;
@@ -139,15 +140,6 @@
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
             // 
-            // version_label
-            // 
-            this.version_label.AutoSize = true;
-            this.version_label.Location = new System.Drawing.Point(313, 526);
-            this.version_label.Name = "version_label";
-            this.version_label.Size = new System.Drawing.Size(69, 13);
-            this.version_label.TabIndex = 9;
-            this.version_label.Text = "version_label";
-            // 
             // Country
             // 
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -174,12 +166,32 @@
             this.Year_Column.ReadOnly = true;
             this.Year_Column.Width = 105;
             // 
+            // version_label
+            // 
+            this.version_label.AutoSize = true;
+            this.version_label.Location = new System.Drawing.Point(313, 526);
+            this.version_label.Name = "version_label";
+            this.version_label.Size = new System.Drawing.Size(69, 13);
+            this.version_label.TabIndex = 9;
+            this.version_label.Text = "version_label";
+            // 
+            // Clear_Btn
+            // 
+            this.Clear_Btn.Location = new System.Drawing.Point(150, 514);
+            this.Clear_Btn.Name = "Clear_Btn";
+            this.Clear_Btn.Size = new System.Drawing.Size(63, 23);
+            this.Clear_Btn.TabIndex = 10;
+            this.Clear_Btn.Text = "Clear";
+            this.Clear_Btn.UseVisualStyleBackColor = true;
+            this.Clear_Btn.Click += new System.EventHandler(this.Clear_Btn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(394, 545);
+            this.Controls.Add(this.Clear_Btn);
             this.Controls.Add(this.version_label);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.progressBar1);
@@ -216,6 +228,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Country;
         private System.Windows.Forms.DataGridViewTextBoxColumn Government_Budget;
         private System.Windows.Forms.DataGridViewTextBoxColumn Year_Column;
+        private System.Windows.Forms.Button Clear_Btn;
     }
 }
 

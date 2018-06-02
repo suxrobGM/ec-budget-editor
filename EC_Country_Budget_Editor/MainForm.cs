@@ -41,7 +41,19 @@ namespace EC_Country_Budget_Editor
         {
             using (var dialog = new FolderBrowserDialog())
             {
-                dialog.SelectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Paradox Interactive", "Hearts of Iron IV", "mod");
+                string DefaultPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Paradox Interactive", "Hearts of Iron IV", "mod");
+                string MyDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                DirectoryInfo ModFolderDir = new DirectoryInfo(DefaultPath);
+                              
+                if (ModFolderDir.Exists)
+                {
+                    dialog.SelectedPath = DefaultPath;
+                }
+                else
+                {
+                    dialog.SelectedPath = MyDocumentsPath;
+                }
+
                 dialog.Description = "Please set the right directory of the EC mod";
                 dialog.ShowDialog();
                 ModPath = dialog.SelectedPath;
@@ -62,7 +74,7 @@ namespace EC_Country_Budget_Editor
             }           
 
             foreach (var item in CountryNamesWithMoney)
-            {
+            {                
                 dataGridView1.Rows.Add(item.Key, item.Value, Sceanrio_2013);
             }
         }
@@ -171,6 +183,12 @@ namespace EC_Country_Budget_Editor
             string NewValue = dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString();
             string Key = dataGridView1[e.ColumnIndex - 1, e.RowIndex].Value.ToString();
             CountryNamesWithMoney[Key] = NewValue;
+        }
+
+        private void Clear_Btn_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Clear();
+            CountryNamesWithMoney.Clear();
         }
     }
 }
