@@ -63,7 +63,7 @@ namespace EC_Country_Budget_Editor
         }
 
         private void Load_Btn_Click(object sender, EventArgs e)
-        {
+        {          
             try
             {
                 ReadData();
@@ -81,11 +81,17 @@ namespace EC_Country_Budget_Editor
 
         private void ReadData()
         {
-            CountryFiles = Directory.GetFiles(ModPath + @"\history\countries\", "*.txt", SearchOption.TopDirectoryOnly);        
+            CountryFiles = Directory.GetFiles(ModPath + @"\history\countries\", "*.txt", SearchOption.TopDirectoryOnly);          
+
+            if(progressBar1.Value > 0)
+            {
+                progressBar1.Value = 0;
+            }
 
             string[] buffer;
             string money_value = "500"; //Default
 
+            int count = 0;
             foreach (var file in CountryFiles)
             {               
                 buffer = File.ReadAllLines(file);
@@ -105,7 +111,9 @@ namespace EC_Country_Budget_Editor
                     }
                 }
                 CountryNamesWithMoney.Add(Path.GetFileNameWithoutExtension(file), money_value);
-            }
+
+                ProgressBarChange(count++, CountryFiles.Length);           
+            }            
         }
 
         private void Save_Btn_Click(object sender, EventArgs e)
@@ -113,6 +121,7 @@ namespace EC_Country_Budget_Editor
             CountryFiles = Directory.GetFiles(ModPath + @"\history\countries\", "*.txt", SearchOption.TopDirectoryOnly);          
             string money_value = "500"; //Default
 
+            int count = 0;
             foreach (var file in CountryFiles)
             {
                 string country_name = Path.GetFileNameWithoutExtension(file);
@@ -123,7 +132,8 @@ namespace EC_Country_Budget_Editor
                     AddMoneyString(file);
                 }
 
-                ChangeMoney(file, money_value);                                                                    
+                ChangeMoney(file, money_value);
+                ProgressBarChange(count++, CountryFiles.Length);
             }
         }
 
@@ -189,6 +199,16 @@ namespace EC_Country_Budget_Editor
         {
             dataGridView1.Rows.Clear();
             CountryNamesWithMoney.Clear();
+        }
+
+        private void ProgressBarChange(int currentValue, int maxValue)
+        {
+            if(progressBar1.Value == maxValue)
+            {
+                progressBar1.Value = 0;
+            }
+            progressBar1.Maximum = maxValue;
+            progressBar1.Value = currentValue;
         }
     }
 }
