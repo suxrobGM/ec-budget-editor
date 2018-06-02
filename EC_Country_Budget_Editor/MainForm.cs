@@ -192,6 +192,8 @@ namespace EC_Country_Budget_Editor
         {
             string NewValue = dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString();
             string Key = dataGridView1[e.ColumnIndex - 1, e.RowIndex].Value.ToString();
+
+            NewValue = NewValue.RemoverStrs(new[] { " ", ",", ".", "\\", "/" });            
             CountryNamesWithMoney[Key] = NewValue;
         }
 
@@ -211,6 +213,17 @@ namespace EC_Country_Budget_Editor
 
             progressBar1.Maximum = maxValue;
             progressBar1.Value = currentValue;
+        }       
+    }
+
+
+    public static class StringHelper
+    {
+        public static string RemoverStrs(this string str, string[] removeStrs)
+        {
+            foreach (var removeStr in removeStrs)
+                str = str.Replace(removeStr, "");
+            return str;
         }
     }
 }
