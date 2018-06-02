@@ -149,7 +149,7 @@ namespace EC_Country_Budget_Editor
                 }
             }
 
-            File.WriteAllLines(file, buffer);        
+            File.WriteAllLines(file, buffer, new UTF8Encoding(true));        
         }
 
         private void AddMoneyString(string file, string money_value="500")
@@ -168,7 +168,7 @@ namespace EC_Country_Budget_Editor
             
             string[] new_buffer = list.GetRange(0, list.Count).ToArray();
 
-            File.WriteAllLines(file, new_buffer);           
+            File.WriteAllLines(file, new_buffer, new UTF8Encoding(true));           
         }
 
         private bool HasMoneyString(string file)
