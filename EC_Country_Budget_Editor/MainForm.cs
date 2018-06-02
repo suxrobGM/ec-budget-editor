@@ -199,6 +199,7 @@ namespace EC_Country_Budget_Editor
         {
             dataGridView1.Rows.Clear();
             CountryNamesWithMoney.Clear();
+            progressBar1.Value = 0;
         }
 
         private void ProgressBarChange(int currentValue, int maxValue)
@@ -207,6 +208,7 @@ namespace EC_Country_Budget_Editor
             {
                 progressBar1.Value = 0;
             }
+
             progressBar1.Maximum = maxValue;
             progressBar1.Value = currentValue;
         }
