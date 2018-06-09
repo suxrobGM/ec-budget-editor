@@ -34,7 +34,7 @@ namespace EC_Country_Budget_Editor
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            version_label.Text = "v. " + Application.ProductVersion;
+            version_label.Text = "v. " + Application.ProductVersion;           
         }
 
         private void SetModPath_Btn_Click(object sender, EventArgs e)
@@ -74,7 +74,7 @@ namespace EC_Country_Budget_Editor
             }           
 
             foreach (var item in CountryNamesWithMoney)
-            {                
+            {          
                 dataGridView1.Rows.Add(item.Key, item.Value, Sceanrio_2013);
             }
         }
@@ -89,7 +89,7 @@ namespace EC_Country_Budget_Editor
             }
 
             string[] buffer;
-            string money_value = "500"; //Default
+            string money_value = "100"; //Default
 
             int count = 0;
             foreach (var file in CountryFiles)
@@ -107,7 +107,7 @@ namespace EC_Country_Budget_Editor
                     }
                     else
                     {
-                        money_value = "500";
+                        money_value = "100";
                     }
                 }
                 CountryNamesWithMoney.Add(Path.GetFileNameWithoutExtension(file), money_value);
@@ -119,7 +119,7 @@ namespace EC_Country_Budget_Editor
         private void Save_Btn_Click(object sender, EventArgs e)
         {
             CountryFiles = Directory.GetFiles(ModPath + @"\history\countries\", "*.txt", SearchOption.TopDirectoryOnly);          
-            string money_value = "500"; //Default
+            string money_value = "100"; //Default
 
             int count = 0;
             foreach (var file in CountryFiles)
@@ -152,7 +152,7 @@ namespace EC_Country_Budget_Editor
             File.WriteAllLines(file, buffer, new UTF8Encoding(true));        
         }
 
-        private void AddMoneyString(string file, string money_value="500")
+        private void AddMoneyString(string file, string money_value="100")
         {
             string[] buffer = File.ReadAllLines(file);
             List<string> list = new List<string>(buffer);
@@ -193,7 +193,9 @@ namespace EC_Country_Budget_Editor
             string NewValue = dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString();
             string Key = dataGridView1[e.ColumnIndex - 1, e.RowIndex].Value.ToString();
 
-            NewValue = NewValue.RemoverStrs(new[] { " ", ",", ".", "\\", "/" });            
+            NewValue = NewValue.RemoverStrs(new[] { " ", ",", ".", "\\", "/" });
+            
+            CheckCellValue(NewValue, e.ColumnIndex, e.RowIndex);           
             CountryNamesWithMoney[Key] = NewValue;
         }
 
@@ -213,7 +215,27 @@ namespace EC_Country_Budget_Editor
 
             progressBar1.Maximum = maxValue;
             progressBar1.Value = currentValue;
-        }       
+        }
+
+        private void CheckCellValue(string CellValue, int ColIndex, int RowIndex)
+        {
+            if (CellValue.Length > 8)
+            {
+                dataGridView1[ColIndex, RowIndex].Style.BackColor = System.Drawing.Color.Yellow;
+                dataGridView1[ColIndex, RowIndex].ToolTipText = $"The value {CellValue} is larger than 10^7 \nGame will not be read correctly this value, please change the value";             
+            }
+            else
+            {
+                dataGridView1[ColIndex, RowIndex].Style.BackColor = System.Drawing.Color.White;
+                dataGridView1[ColIndex, RowIndex].ToolTipText = $"{CellValue}";             
+            }
+        }
+
+        private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            string NewValue = dataGridView1[1, e.RowIndex].Value.ToString();
+            CheckCellValue(NewValue, 1, e.RowIndex);          
+        }
     }
 
 
